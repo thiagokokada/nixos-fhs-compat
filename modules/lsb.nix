@@ -27,6 +27,14 @@
       '';
       default = false;
     };
+    
+    environment.lsb.extraLibs = lib.mkOption {
+      type = with lib.types; listOf package;
+      description = ''
+        Extra libraries to be included.
+      '';
+      default = [ ];
+    };
 
   };
 
@@ -131,7 +139,7 @@
         libpng
         gtk3
 
-      ];
+      ] ++ config.environment.lsb.extraLibs;
 
     base-libs32 = pkgs.buildEnv {
       name = "fhs-base-libs32";
